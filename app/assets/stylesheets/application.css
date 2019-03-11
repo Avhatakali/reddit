@@ -25,3 +25,12 @@
  .alert-notice {
    @extend .alert-info;
  }
+
+.image {
+  padding: 2px;
+  border: 1px solid black;
+  align-items: center;
+  text-align: center;
+  height: 10%;
+  width: 20%;
+}

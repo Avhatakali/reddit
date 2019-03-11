@@ -1,0 +1,19 @@
+<%= link_to 'new post', new_post_path %>
+
+<table>
+  <tr>
+    <th>posts</th>
+    <th>posts</th>
+    <th>posts</th>
+  </tr>
+
+  <% @posts.each do |post| %>
+  <tr>
+    <td><%= post.title %></td>
+    <td><a href="http://www.facebook.com/mypage" target="_blank"><%= post.weblink %></a></td>
+    <td><%= post.description %></td>
+    <td><%= link_to 'show', post_path(post) %></td>
+    <td><%= link_to 'comment', new_post_comment_path(post) %></td>
+  <% end %>
+  </tr>
+</table>
