@@ -3,8 +3,11 @@
 <table>
   <tr>
     <th>posts</th>
-    <th>posts</th>
-    <th>posts</th>
+    <th>weblink</th>
+    <th>description</th>
+    <th>dislike</th>
+    <th>likes</th>
+      <th>vote</th>
   </tr>
 
   <% @posts.each do |post| %>
@@ -12,8 +15,18 @@
     <td><%= post.title %></td>
     <td><a href="http://www.facebook.com/mypage" target="_blank"><%= post.weblink %></a></td>
     <td><%= post.description %></td>
+    <td class='js-dislikes'><%= post.dislike %></td>
+    <td class='js-likes'><%= post.like %></td>
+    <td class='js-vote'><%= post.vote %></td>
     <td><%= link_to 'show', post_path(post) %></td>
+    <td><%= link_to 'like', post_like_path(post), remote: true %></td>
+    <td><%= link_to 'dislike', post_dislike_path(post), remote: true %></td>
+    <% if user_signed_in? %>
     <td><%= link_to 'comment', new_post_comment_path(post) %></td>
+    <td><%= link_to 'delete', post_path(post), method: :delete, data: { confirm: "are yuh sure ?"} %></td>
+    <% end %>
   <% end %>
   </tr>
 </table>
+
+<%= paginate @post_paginator %>

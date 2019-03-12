@@ -1,1 +1,16 @@
 <h4><%= "#{@post.title}" %></h4>
+<table>
+  <% if @post.comments.present? %>
+    <tr>
+      <th>Comments</th>
+    </tr>
+
+    <% @post.comments.each do |comment|%>
+    <tr>
+      <td><%= comment.comment %></td>
+    </tr>
+  <% end %>
+  <% else %>
+    <p>No comments yet</p>
+  <% end %>
+</table>

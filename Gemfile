@@ -6,7 +6,8 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'jquery-turbolinks'
 gem "letter_opener", :group => :development
-
+gem 'kaminari'
+gem 'pry', '~> 0.12.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
