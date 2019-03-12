@@ -35,21 +35,30 @@ class PostsController < ApplicationController
     end
   end
 
-
   def like
-    @user = current_user
     @post = Post.find(params[:post_id])
-    @post.like += 1
-    @post.vote = @post.like - @post.dislike
-    @post.save
+    user = @post.user
+
+    if current_user != user
+      @post.like += 1
+      @post.vote = @post.like + @post.dislike
+      @post.save
+    else
+      redirect_to posts_path, alert: "Access Denied, yuh cannot like your own post"
+    end
   end
 
   def dislike
-    @user = current_user
     @post = Post.find(params[:post_id])
-    @post.dislike += 1
-    @post.vote = @post.like - @post.dislike
-    @post.save
+    user = @post.user
+
+    if current_user != user
+      @post.dislike += 1
+      @post.vote = @post.like + @post.dislike
+      @post.save
+    else
+      redirect_to post alert: "Access Denied, yuh cannot dislike your own post"
+    end
   end
 
   private

@@ -16,10 +16,36 @@ class CommentsController < ApplicationController
     end
   end
 
+  def like
+    @comment = Comment.find(params[:comment_id])
+    user = @comment.user
+
+    if current_user != user
+      @comment.like += 1
+      @comment.vote = @comment.like + @comment.dislike
+      @comment.save
+    else
+      redirect_to posts_path, alert: "Access Denied, yuh cannot like your own comment"
+    end
+  end
+
+  def dislike
+    @comment = Comment.find(params[:comment_id])
+    user = @comment.user
+
+    if current_user != user
+      @comment.dislike += 1
+      @comment.vote = @comment.like + @comment.dislike
+      @comment.save
+    else
+      redirect_to posts_path, alert: "Access Denied, yuh cannot dislike your own comment"
+    end
+  end
+
   private
-   def comment_params
-     params.require(:comment)
+    def comment_params
+      params.require(:comment)
            .permit(:comment, :user_id)
            .merge(post_id: params[:post_id])
-   end
+    end
 end

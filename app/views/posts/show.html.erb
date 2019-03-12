@@ -3,11 +3,19 @@
   <% if @post.comments.present? %>
     <tr>
       <th>Comments</th>
+      <th>likes</th>
+      <th>dislike</th>
+      <th>vote</th>
     </tr>
 
     <% @post.comments.each do |comment|%>
     <tr>
       <td><%= comment.comment %></td>
+      <td class='js-likes'><%= comment.like %></td>
+      <td class='js-dislikes'><%= comment.dislike %></td>
+      <td class='js-vote'><%= comment.vote %></td>
+      <td><%= link_to 'like', post_comment_like_path(@post, comment), remote: true %></td>
+      <td><%= link_to 'dislike', post_comment_dislike_path(@post, comment), remote: true %></td>
     </tr>
   <% end %>
   <% else %>
