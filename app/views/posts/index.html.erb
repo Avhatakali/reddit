@@ -1,5 +1,8 @@
-<%= link_to 'new post', new_post_path %>
+<% if user_signed_in? %>
+  <%= link_to 'new post', new_post_path %>
+<% end %>
 
+<% if @posts.present? %>
 <table>
   <tr>
     <th>posts</th>
@@ -13,13 +16,13 @@
   <% @posts.each do |post| %>
   <tr>
     <td><%= post.title %></td>
-    <td><a href="http://www.facebook.com/mypage" target="_blank"><%= post.weblink %></a></td>
+    <td><a href="https://guides.rubyonrails.org" target="_blank"><%= post.weblink %></a></td>
     <td><%= post.description %></td>
     <td class='js-dislikes'><%= post.dislike %></td>
     <td class='js-likes'><%= post.like %></td>
     <td class='js-vote'><%= post.vote %></td>
     <td><%= link_to 'show', post_path(post) %></td>
-    
+
     <% if user_signed_in? %>
       <td><%= link_to 'like', post_like_path(post), remote: true %></td>
       <td><%= link_to 'dislike', post_dislike_path(post), remote: true %></td>
@@ -29,5 +32,5 @@
   <% end %>
   </tr>
 </table>
-
+<% end %>
 <%= paginate @post_paginator %>

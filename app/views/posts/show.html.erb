@@ -16,6 +16,8 @@
       <td class='js-vote'><%= comment.vote %></td>
       <td><%= link_to 'like', post_comment_like_path(@post, comment), remote: true %></td>
       <td><%= link_to 'dislike', post_comment_dislike_path(@post, comment), remote: true %></td>
+      <td><%= link_to 'edit', edit_post_comment_path(@post, comment) %></td>
+      <td><%= link_to 'delete', post_comment_path(@post, comment), method: :delete, data: { confirm: "are yuh sure ?"} %></td>
     </tr>
   <% end %>
   <% else %>

@@ -5,6 +5,11 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new
   end
 
+  def edit
+    @comment = Comment.find(params[:id])
+    @post = @comment.post
+  end
+
   def create
     @user = current_user
     @comment = @user.comments.create(comment_params)
@@ -13,6 +18,30 @@ class CommentsController < ApplicationController
       redirect_to posts_path(@post)
     else
       render 'new'
+    end
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+
+    user = @comment.user
+    if current_user == user
+      @comment.update(comment_params)
+      redirect_to posts_path(@post)
+    else
+      redirect_to posts_path, alert: "Access Denied, yuh cannot edit another user's comment"
+    end
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+
+    user = @comment.user
+    if current_user == user
+      @comment.destroy
+      redirect_to posts_path
+    else
+      redirect_to posts_path, alert: "Access Denied, yuh cannot delete another user's comment"
     end
   end
 
@@ -45,7 +74,7 @@ class CommentsController < ApplicationController
   private
     def comment_params
       params.require(:comment)
-           .permit(:comment, :user_id)
-           .merge(post_id: params[:post_id])
+            .permit(:comment, :user_id)
+            .merge(post_id: params[:post_id])
     end
 end

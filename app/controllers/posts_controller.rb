@@ -57,7 +57,7 @@ class PostsController < ApplicationController
       @post.vote = @post.like + @post.dislike
       @post.save
     else
-      redirect_to post alert: "Access Denied, yuh cannot dislike your own post"
+      redirect_to posts_path, alert: "Access Denied, yuh cannot dislike your own post"
     end
   end
 
