@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :title, :weblink, presence: true,
-                    length: { minimum: 4 }
-
+    length: { minimum: 4 }
+    
    paginates_per 2
 end
